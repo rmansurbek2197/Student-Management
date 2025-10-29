@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Yangi Talaba Qo‘shish</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="header">
+            <h1>Yangi Talaba Qo‘shish</h1>
+            <a href="{{ url_for('all_students') }}" class="back-btn">Talabalar ro‘yxatiga qaytish</a>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="form-card">
+
+            <div class="form-group">
+                <label for="firstname">Ism</label>
+                <input type="text" name="firstname" id="firstname" placeholder="Talaba ismini kiriting" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Familiya</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Talaba familiyasini kiriting" required>
+            </div>
+
+            <div class="form-group">
+                <label for="group">Guruh</label>
+                <input type="text" name="group" id="group" placeholder="Masalan: 22-A">
+            </div>
+
+            <div class="form-group">
+                <label for="birth">Tug‘ilgan sana</label>
+                <input type="date" name="birth" id="birth" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Saqlash</button>
+                <a href="{{ url_for('all_students') }}" class="btn btn-ghost"> Bekor qilish</a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>

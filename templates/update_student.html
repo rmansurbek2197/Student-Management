@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Talabani tahrirlash</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Talabani tahrirlash</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="firstname">Ism:</label>
+            <input type="text" id="firstname" name="firstname" value="{{ student.firstname }}" required>
+
+            <label for="lastname">Familiya:</label>
+            <input type="text" id="lastname" name="lastname" value="{{ student.lastname }}" required>
+
+            <label for="group">Guruh:</label>
+            <input type="text" id="group" name="group" value="{{ student.group }}">
+
+            <label for="birth">Tug‘ilgan sana:</label>
+            <input type="date" id="birth" name="birth" value="{{ student.birth }}" required>
+
+            <button type="submit" class="btn save">Saqlash</button>
+            <a href="{{ url_for('all_students') }}" class="btn cancel">Bekor qilish</a>
+        </form>
+    </div>
+</body>
+</html>

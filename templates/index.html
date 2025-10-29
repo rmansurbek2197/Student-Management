@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="{{ url_for('index') }}" class="brand">
+                <div class="logo">T</div>
+                <div>
+                    <h1>Talabalar tizimi</h1>
+                    <p>Bosh sahifa</p>
+                </div>
+            </a>
+        </header>
+
+        <!-- Main card -->
+        <div class="card center">
+            <h2>Talabalar Boshqaruv Tizimiga Xush Kelibsiz!</h2>
+            <p class="subtitle">Bu joyda siz talabalarni qo‘shishingiz, yangilashingiz yoki o‘chirishingiz mumkin.</p>
+
+            <div class="buttons">
+                <a href="{{ url_for('all_students') }}" class="btn btn-primary">Talabalar Ro‘yxati</a>
+                <a href="{{ url_for('student_add') }}" class="btn btn-ghost">Yangi Talaba Qo‘shish</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 Talabalar tizimi. Barcha huquqlar himoyalangan.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

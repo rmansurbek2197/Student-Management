@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Talabalar ro‘yxati</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="{{ url_for('index') }}" class="brand">
+                <div class="logo">T</div>
+                <div>
+                    <h1>Talabalar tizimi</h1>
+                    <p>Ro‘yxat sahifasi</p>
+                </div>
+            </a>
+
+            <div class="actions">
+                <a href="{{ url_for('student_add') }}" class="btn btn-primary">Talaba qo‘shish</a>
+                <a href="{{ url_for('index') }}" class="btn btn-ghost">Bosh sahifa</a>
+            </div>
+        </header>
+
+        <!-- Flash xabarlar -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Talabalar jadvali -->
+        <div class="card">
+            <h2>Talabalar ro‘yxati</h2>
+
+            {% if students %}
+                <div class="table-wrap">
+                    <table class="students">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ism</th>
+                                <th>Familiya</th>
+                                <th>Guruh</th>
+                                <th>Tug‘ilgan sana</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.id }}</td>
+                                <td>
+                                    <div class="avatar">{{ student.firstname }}</div>
+                                </td>
+                                <td>{{ student.lastname }}</td>
+                                <td>
+                                    {% if student.group %}
+                                        <span class="badge badge-group">{{ student.group }}</span>
+                                    {% else %}
+                                        <span class="badge badge-muted">—</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ student.birth.strftime('%Y-%m-%d') }}</td>
+                                <td class="actions-cell">
+                                    <a href="{{ url_for('update_student', id=student.id) }}" class="btn-small edit">✏️</a>
+                                    <a href="{{ url_for('delete_student', id=student.id) }}" class="btn-small delete" onclick="return confirm('Rostdan o‘chirmoqchimisiz?')">🗑️</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty">
+                    <p>Hozircha hech qanday talaba mavjud emas.</p>
+                    <a href="{{ url_for('student_add') }}" class="btn btn-primary">Talaba qo‘shish</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
